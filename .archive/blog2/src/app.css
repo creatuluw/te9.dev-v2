@@ -1,0 +1,152 @@
+@import 'tailwindcss';
+@plugin "@tailwindcss/typography";
+
+@theme {
+	--font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+* {
+	font-family: var(--font-sans);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+	background: #fff;
+	color: #000;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+.bento-card {
+	transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
+	transform-style: preserve-3d;
+}
+
+.bento-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.bento-card:hover .card-image {
+	transform: scale(1.03);
+}
+
+.bento-card:hover .card-content {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.card-image {
+	transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card-content {
+	opacity: 0.8;
+	transform: translateY(10px);
+	transition: all 0.4s ease;
+}
+
+@keyframes scroll {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(-50%);
+	}
+}
+
+.marquee {
+	animation: scroll 20s linear infinite;
+}
+
+.gradient-overlay {
+	background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 50%);
+}
+
+.prose {
+	max-width: 65ch;
+}
+
+.prose :is(h1, h2, h3, h4) {
+	font-weight: 700;
+	line-height: 1.3;
+	margin-top: 2em;
+	margin-bottom: 0.5em;
+	color: #fff;
+}
+
+.prose :is(h1) {
+	font-size: 2.25rem;
+}
+
+.prose :is(h2) {
+	font-size: 1.5rem;
+}
+
+.prose :is(h3) {
+	font-size: 1.25rem;
+}
+
+.prose :is(p) {
+	margin-top: 1.25em;
+	margin-bottom: 1.25em;
+	color: #a1a1aa;
+}
+
+.prose :is(a) {
+	color: #fff;
+	text-decoration: underline;
+}
+
+.prose :is(code) {
+	font-family: monospace;
+	font-size: 0.875em;
+	background-color: rgba(255, 255, 255, 0.1);
+	padding: 0.2em 0.4em;
+	border-radius: 0.25rem;
+}
+
+.prose :is(pre) {
+	font-family: monospace;
+	font-size: 0.875rem;
+	background-color: #1a1a1a;
+	color: #fafafa;
+	padding: 1rem;
+	border-radius: 0.5rem;
+	overflow-x: auto;
+}
+
+.prose :is(pre code) {
+	background: none;
+	padding: 0;
+}
+
+.prose :is(ul, ol) {
+	padding-left: 1.5em;
+	margin-top: 1.25em;
+	margin-bottom: 1.25em;
+	color: #a1a1aa;
+}
+
+.prose :is(li) {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.prose :is(blockquote) {
+	border-left: 4px solid #3f3f46;
+	padding-left: 1em;
+	margin-left: 0;
+	margin-right: 0;
+	font-style: italic;
+	color: #71717a;
+}
+
+.prose :is(img) {
+	max-width: 100%;
+	height: auto;
+	border-radius: 0.5rem;
+}

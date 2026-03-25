@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "skills": {
+    "agent-skill-creator": {
+      "source": "francyjglisboa/agent-skill-creator",
+      "sourceType": "github",
+      "computedHash": "91c3c7cda6b7218a93455fdf47e99f97f70a94a106cee0aa6360bc280ec9fef1"
+    },
+    "documentation-writing": {
+      "source": "vinnie357/claude-skills",
+      "sourceType": "github",
+      "computedHash": "e56eb3a9a4a37bdade611f8cb9a538f8ba00c3198c03a6cc60ee5160958d7bfe"
+    },
+    "user-guide-writing": {
+      "source": "supercent-io/skills-template",
+      "sourceType": "github",
+      "computedHash": "e396b8378c0c98b92fb849ec7a94d5adb902b9f33b37188c8942073112ae8558"
+    }
+  }
+}

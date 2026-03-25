@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Studio Journal</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            * {
+                font-family: "Inter", sans-serif;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+            ::selection {
+                background: #fff;
+                color: #000;
+            }
+
+            /* Smooth scroll container if needed */
+            html {
+                scroll-behavior: smooth;
+            }
+
+            /* Card Hover Effects */
+            .bento-card {
+                transition:
+                    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                    box-shadow 0.5s ease;
+                transform-style: preserve-3d;
+            }
+            .bento-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            }
+            .bento-card:hover .card-image {
+                transform: scale(1.03);
+            }
+            .bento-card:hover .card-content {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            /* Image zoom */
+            .card-image {
+                transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+            }
+
+            /* Content reveal */
+            .card-content {
+                opacity: 0.8;
+                transform: translateY(10px);
+                transition: all 0.4s ease;
+            }
+
+            /* Marquee Animation */
+            @keyframes scroll {
+                from {
+                    transform: translateX(0);
+                }
+                to {
+                    transform: translateX(-50%);
+                }
+            }
+            .marquee {
+                animation: scroll 20s linear infinite;
+            }
+
+            /* Custom Cursor Styles (Simulated via hover) */
+            .cursor-hover:hover {
+                cursor: pointer;
+            }
+
+            /* Gradient Overlays */
+            .gradient-overlay {
+                background: linear-gradient(
+                    to top,
+                    rgba(0, 0, 0, 0.8) 0%,
+                    transparent 50%
+                );
+            }
+        </style>
+    </head>
+    <body class="bg-zinc-950 text-white overflow-x-hidden">
+        <!-- Navigation -->
+        <header class="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-6">
+            <nav class="max-w-7xl mx-auto flex items-center justify-between">
+                <!-- Logo -->
+                <a href="#" class="text-lg font-bold tracking-tight">
+                    Studio<span class="text-zinc-500">.</span>
+                </a>
+
+                <!-- Nav Links (Centered on Desktop) -->
+                <div
+                    class="hidden md:absolute md:left-1/2 md:-translate-x-1/2 md:flex items-center gap-8"
+                >
+                    <a
+                        href="#"
+                        class="text-xs uppercase tracking-widest text-white hover:text-zinc-400 transition-colors"
+                        >Work</a
+                    >
+                    <a
+                        href="#"
+                        class="text-xs uppercase tracking-widest text-zinc-500 hover:text-white transition-colors"
+                        >Journal</a
+                    >
+                    <a
+                        href="#"
+                        class="text-xs uppercase tracking-widest text-zinc-500 hover:text-white transition-colors"
+                        >About</a
+                    >
+                </div>
+
+                <!-- CTA Button -->
+                <a
+                    href="#"
+                    class="flex items-center gap-2 px-4 py-2 bg-white text-black text-xs font-bold uppercase tracking-wide rounded-full hover:bg-zinc-200 transition-colors"
+                >
+                    <span
+                        class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"
+                    ></span>
+                    Contact
+                </a>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="pt-32 pb-16 px-6 md:px-12">
+            <div class="max-w-7xl mx-auto">
+                <h1
+                    class="text-4xl md:text-6xl lg:text-7xl font-semibold leading-[1.1] tracking-tight mb-8 max-w-4xl"
+                >
+                    Thoughts on design, technology, and culture.
+                </h1>
+                <div
+                    class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-zinc-800 pb-8"
+                >
+                    <p class="text-lg text-zinc-400 max-w-md">
+                        A curated collection of stories, insights, and studio
+                        updates.
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <span
+                            class="text-xs text-zinc-500 uppercase tracking-wide"
+                            >Filter by</span
+                        >
+                        <button
+                            class="px-4 py-2 border border-zinc-700 rounded-full text-xs font-medium hover:bg-zinc-800 transition-colors"
+                        >
+                            All
+                        </button>
+                        <button
+                            class="px-4 py-2 rounded-full text-xs font-medium hover:bg-zinc-800 transition-colors"
+                        >
+                            Design
+                        </button>
+                        <button
+                            class="px-4 py-2 rounded-full text-xs font-medium hover:bg-zinc-800 transition-colors"
+                        >
+                            Dev
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bento Grid Layout -->
+        <section class="px-6 md:px-12 pb-24">
+            <div class="max-w-7xl mx-auto">
+                <div
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 auto-rows-[300px]"
+                >
+                    <!-- Card 1: Featured Large (2x2) -->
+                    <article
+                        class="bento-card col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-2 relative rounded-3xl overflow-hidden bg-zinc-900 group cursor-hover"
+                    >
+                        <div class="absolute inset-0">
+                            <img
+                                src="https://picsum.photos/seed/keel1/800/800"
+                                alt="Featured"
+                                class="card-image w-full h-full object-cover opacity-60"
+                            />
+                            <div
+                                class="gradient-overlay absolute inset-0"
+                            ></div>
+                        </div>
+                        <div class="absolute top-6 left-6 z-10">
+                            <span
+                                class="px-3 py-1 bg-white text-black text-[10px] font-bold uppercase tracking-wider rounded-full"
+                                >Featured</span
+                            >
+                        </div>
+                        <div
+                            class="absolute bottom-0 left-0 right-0 p-8 z-10 card-content"
+                        >
+                            <span
+                                class="text-xs text-zinc-300 uppercase tracking-widest mb-2 block"
+                                >Design Systems</span
+                            >
+                            <h2
+                                class="text-3xl md:text-4xl font-semibold leading-tight mb-3"
+                            >
+                                The Art of Minimalist Design
+                            </h2>
+                            <p
+                                class="text-sm text-zinc-300 leading-relaxed max-w-md mb-4"
+                            >
+                                Exploring how constraints breed creativity and
+                                why removing elements can often strengthen a
+                                design.
+                            </p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-zinc-500"
+                                    >Dec 15, 2024</span
+                                >
+                                <span
+                                    class="iconify text-2xl text-white"
+                                    data-icon="mdi:arrow-top-right"
+                                ></span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Card 2: Standard (1x1) -->
+                    <article
+                        class="bento-card relative rounded-3xl overflow-hidden bg-zinc-900 group cursor-hover"
+                    >
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-indigo-600 to-purple-800 opacity-40"
+                        ></div>
+                        <div
+                            class="absolute inset-0 p-6 flex flex-col justify-between"
+                        >
+                            <div>
+                                <span
+                                    class="text-xs text-zinc-300 uppercase tracking-widest mb-2 block"
+                                    >Technology</span
+                                >
+                                <h3 class="text-xl font-semibold leading-tight">
+                                    Building for the Future
+                                </h3>
+                            </div>
+                            <div
+                                class="flex items-center justify-between card-content"
+                            >
+                                <span class="text-xs text-zinc-400">6 Min</span>
+                                <span
+                                    class="iconify text-xl text-white"
+                                    data-icon="mdi:arrow-right"
+                                ></span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Card 3: Standard (1x1) -->
+                    <article
+                        class="bento-card relative rounded-3xl overflow-hidden bg-zinc-900 group cursor-hover"
+                    >
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-orange-500 to-red-700 opacity-40"
+                        ></div>
+                        <div
+                            class="absolute inset-0 p-6 flex flex-col justify-between"
+                        >
+                            <div>
+                                <span
+                                    class="text-xs text-zinc-300 uppercase tracking-widest mb-2 block"
+                                    >Philosophy</span
+                                >
+                                <h3 class="text-xl font-semibold leading-tight">
+                                    The Power of Constraints
+                                </h3>
+                            </div>
+                            <div
+                                class="flex items-center justify-between card-content"
+                            >
+                                <span class="text-xs text-zinc-400">3 Min</span>
+                                <span
+                                    class="iconify text-xl text-white"
+                                    data-icon="mdi:arrow-right"
+                                ></span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Card 4: Wide (2x1) -->
+                    <article
+                        class="bento-card col-span-1 md:col-span-2 relative rounded-3xl overflow-hidden bg-zinc-900 group cursor-hover"
+                    >
+                        <div class="absolute inset-0">
+                            <img
+                                src="https://picsum.photos/seed/keel4/800/400"
+                                alt="Tech"
+                                class="card-image w-full h-full object-cover opacity-50"
+                            />
+                        </div>
+                        <div
+                            class="absolute inset-0 p-6 md:p-8 flex flex-col justify-end z-10"
+                        >
+                            <span
+                                class="text-xs text-zinc-300 uppercase tracking-widest mb-2"
+                                >Typography</span
+                            >
+                            <h2
+                                class="text-2xl md:text-3xl font-semibold leading-tight mb-2"
+                            >
+                                Typography in Digital Spaces
+                            </h2>
+                            <p class="text-sm text-zinc-400 max-w-sm">
+                                How choosing the right typeface can transform
+                                user experience.
+                            </p>
+                        </div>
+                        <div class="absolute top-6 right-6 z-10">
+                            <span
+                                class="iconify text-2xl text-white opacity-50 group-hover:opacity-100 transition-opacity"
+                                data-icon="mdi:arrow-top-right"
+                            ></span>
+                        </div>
+                    </article>
+
+                    <!-- Card 5: Standard (1x1) -->
+                    <article
+                        class="bento-card relative rounded-3xl overflow-hidden bg-zinc-900 group cursor-hover"
+                    >
+                        <div class="absolute inset-0">
+                            <img
+                                src="https://picsum.photos/seed/keel5/400/400"
+                                alt="Color"
+                                class="card-image w-full h-full object-cover opacity-60"
+                            />
+                        </div>
+                        <div
+                            class="absolute inset-0 p-6 flex flex-col justify-end z-10 bg-gradient-to-t from-black/80 to-transparent"
+                        >
+                            <span
+                                class="text-xs text-zinc-300 uppercase tracking-widest mb-1"
+                                >Color</span
+                            >
+                            <h3 class="text-lg font-semibold leading-tight">
+                                Color Theory Essentials
+                            </h3>
+                        </div>
+                    </article>
+
+                    <!-- Card 6: Standard (1x1) -->
+                    <article
+                        class="bento-card relative rounded-3xl overflow-hidden bg-zinc-900 group cursor-hover"
+                    >
+                        <div class="absolute inset-0">
+                            <img
+                                src="https://picsum.photos/seed/keel6/400/400"
+                                alt="Creative"
+                                class="card-image w-full h-full object-cover opacity-60"
+                            />
+                        </div>
+                        <div
+                            class="absolute inset-0 p-6 flex flex-col justify-end z-10 bg-gradient-to-t from-black/80 to-transparent"
+                        >
+                            <span
+                                class="text-xs text-zinc-300 uppercase tracking-widest mb-1"
+                                >Creative</span
+                            >
+                            <h3 class="text-lg font-semibold leading-tight">
+                                Finding Creative Flow
+                            </h3>
+                        </div>
+                    </article>
+
+                    <!-- Card 7: Wide (2x1) -->
+                    <article
+                        class="bento-card col-span-1 md:col-span-2 relative rounded-3xl overflow-hidden bg-zinc-900 group cursor-hover"
+                    >
+                        <div
+                            class="absolute inset-0 bg-gradient-to-r from-emerald-600 to-teal-900 opacity-50"
+                        ></div>
+                        <div
+                            class="absolute inset-0 p-6 md:p-8 flex flex-col justify-center z-10"
+                        >
+                            <div class="max-w-sm">
+                                <span
+                                    class="text-xs text-zinc-200 uppercase tracking-widest mb-2 block"
+                                    >Studio Update</span
+                                >
+                                <h2
+                                    class="text-2xl md:text-3xl font-semibold leading-tight mb-2"
+                                >
+                                    Designing for Everyone
+                                </h2>
+                                <p class="text-sm text-zinc-300">
+                                    Creating inclusive digital experiences for
+                                    all users.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="absolute top-6 right-6 z-10">
+                            <span
+                                class="iconify text-2xl text-white opacity-50 group-hover:opacity-100 transition-opacity"
+                                data-icon="mdi:arrow-top-right"
+                            ></span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Marquee Section -->
+        <section
+            class="border-t border-b border-zinc-800 py-6 overflow-hidden mb-24"
+        >
+            <div class="marquee flex whitespace-nowrap">
+                <span class="text-5xl md:text-6xl font-bold text-zinc-800 mx-8"
+                    >Design</span
+                >
+                <span class="text-5xl md:text-6xl font-bold text-zinc-800 mx-8"
+                    >•</span
+                >
+                <span class="text-5xl md:text-6xl font-bold text-zinc-800 mx-8"
+                    >Develop</span
+                >
+                <span class="text-5xl md:text-6xl font-bold text-zinc-800 mx-8"
+                    >•</span
+                >
+                <span class="text-5xl md:text-6xl font-bold text-zinc-800 mx-8"
+                    >Create</span
+                >
+                <span class="text-5xl md:text-6xl font-bold text-zinc-800 mx-8"
+                    >•</span
+                >
+                <!-- Duplicate for seamless loop -->
+                <span class="text-5xl md:text-6xl font-bold text-zinc-800 mx-8"
+                    >Design</span
+                >
+                <span class="text-5xl md:text-6xl font-bold text-zinc-800 mx-8"
+                    >•</span
+                >
+                <span class="text-5xl md:text-6xl font-bold text-zinc-800 mx-8"
+                    >Develop</span
+                >
+                <span class="text-5xl md:text-6xl font-bold text-zinc-800 mx-8"
+                    >•</span
+                >
+                <span class="text-5xl md:text-6xl font-bold text-zinc-800 mx-8"
+                    >Create</span
+                >
+                <span class="text-5xl md:text-6xl font-bold text-zinc-800 mx-8"
+                    >•</span
+                >
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="px-6 md:px-12 py-16 bg-black border-t border-zinc-900">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                    <!-- Brand -->
+                    <div class="md:col-span-2">
+                        <h3 class="text-3xl font-semibold mb-4">
+                            Let's build something <br />great together.
+                        </h3>
+                        <a
+                            href="mailto:hello@studio.com"
+                            class="text-lg text-zinc-400 hover:text-white transition-colors border-b border-zinc-700 pb-1"
+                            >hello@studio.com</a
+                        >
+                    </div>
+
+                    <!-- Links -->
+                    <div>
+                        <h4
+                            class="text-xs uppercase tracking-widest text-zinc-500 mb-4"
+                        >
+                            Navigation
+                        </h4>
+                        <ul class="space-y-3">
+                            <li>
+                                <a
+                                    href="#"
+                                    class="text-zinc-300 hover:text-white transition-colors"
+                                    >Work</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    class="text-zinc-300 hover:text-white transition-colors"
+                                    >Journal</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    class="text-zinc-300 hover:text-white transition-colors"
+                                    >About</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Social -->
+                    <div>
+                        <h4
+                            class="text-xs uppercase tracking-widest text-zinc-500 mb-4"
+                        >
+                            Connect
+                        </h4>
+                        <ul class="space-y-3">
+                            <li>
+                                <a
+                                    href="#"
+                                    class="text-zinc-300 hover:text-white transition-colors"
+                                    >Twitter</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    class="text-zinc-300 hover:text-white transition-colors"
+                                    >Dribbble</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#"
+                                    class="text-zinc-300 hover:text-white transition-colors"
+                                    >LinkedIn</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div
+                    class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-zinc-900"
+                >
+                    <p class="text-xs text-zinc-600 mb-4 md:mb-0">
+                        © 2024 Studio. All rights reserved.
+                    </p>
+                    <p class="text-xs text-zinc-600">
+                        Designed with precision.
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
