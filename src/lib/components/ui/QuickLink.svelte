@@ -1,7 +1,8 @@
 <script lang="ts">
     import { slide } from "svelte/transition";
     import { cubicOut } from "svelte/easing";
-    import type { QuickLink } from './types';
+    import type { QuickLink } from "./types";
+    import { ArrowUpRight } from "@lucide/svelte";
 
     interface Props {
         link: QuickLink;
@@ -24,7 +25,7 @@
 >
     <span class="link-name">{link.name}</span>
     <span class="link-desc">{link.desc}</span>
-    <span class="link-arrow">→</span>
+    <ArrowUpRight class="link-arrow" size={20} />
 </a>
 
 <style>
@@ -48,7 +49,7 @@
     }
 
     .link-name {
-        font-family: 'JetBrains Mono', monospace;
+        font-family: "JetBrains Mono", monospace;
         font-size: 1rem;
         font-weight: 500;
         color: #e8e8e8;
@@ -61,14 +62,13 @@
         margin: 0 1rem;
     }
 
-    .link-arrow {
+    :global(.link-arrow) {
         color: #ff9500;
-        font-size: 1.25rem;
         transition: transform 0.3s ease;
     }
 
-    .link-item:hover .link-arrow {
-        transform: translateX(4px);
+    .link-item:hover :global(.link-arrow) {
+        transform: translate(2px, -2px);
     }
 
     @media (max-width: 600px) {
@@ -83,7 +83,7 @@
             order: 2;
         }
 
-        .link-arrow {
+        :global(.link-arrow) {
             order: 1;
             align-self: flex-end;
         }

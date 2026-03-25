@@ -1,6 +1,7 @@
 <script lang="ts">
     // Hero.svelte - Hero section component for the homepage
     // Contains label, title, subtitle, description, CTAs, and decorative elements
+    import { ArrowRight } from "@lucide/svelte";
 </script>
 
 <section class="hero">
@@ -26,7 +27,7 @@
         <div class="hero-cta">
             <a href="#garden" class="btn btn-primary">
                 <span class="btn-text">explore</span>
-                <span class="btn-icon">→</span>
+                <ArrowRight class="btn-icon" size={18} />
             </a>
             <a
                 href="https://patrick.te9.nl/about/"
@@ -182,13 +183,13 @@
         z-index: 1;
     }
 
-    .btn-icon {
+    :global(.btn-icon) {
         position: relative;
         z-index: 1;
         transition: transform 0.3s ease;
     }
 
-    .btn-primary:hover .btn-icon {
+    :global(.btn-primary:hover .btn-icon) {
         transform: translateX(4px);
     }
 

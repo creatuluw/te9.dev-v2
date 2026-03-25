@@ -16,47 +16,16 @@
     class="garden-card"
 >
     <div class="garden-card-accent"></div>
-    <div class="relative z-10">
-        <div class="garden-icon">
-            <svg
-                width="32"
-                height="32"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-            >
-                {#each card.paths as path}
-                    {#if "d" in path && path.d}
-                        <path d={path.d} />
-                    {:else if "rect" in path && path.rect}
-                        <rect
-                            x={path.rect.x}
-                            y={path.rect.y}
-                            width={path.rect.width}
-                            height={path.rect.height}
-                            rx={path.rect.rx}
-                        />
-                    {:else if "polyline" in path && path.polyline}
-                        <polyline points={path.polyline.points} />
-                    {:else if "line" in path && path.line}
-                        <line
-                            x1={path.line.x1}
-                            y1={path.line.y1}
-                            x2={path.line.x2}
-                            y2={path.line.y2}
-                        />
-                    {:else if "circle" in path && path.circle}
-                        <circle
-                            cx={path.circle.cx}
-                            cy={path.circle.cy}
-                            r={path.circle.r}
-                        />
-                    {/if}
-                {/each}
-            </svg>
+    <div class="card-content">
+        <div class="garden-header">
+            <h3 class="garden-title">{card.title}</h3>
+            <div class="garden-icon">
+                {#if card.icon}
+                    {@const Icon = card.icon}
+                    <Icon size={24} />
+                {/if}
+            </div>
         </div>
-        <h3 class="garden-title">{card.title}</h3>
         <p class="garden-desc">{card.desc}</p>
         <span class="garden-tag">{card.tag}</span>
     </div>
@@ -92,8 +61,6 @@
 
     .garden-card:hover {
         border-color: #333333;
-        border-radius: 0;
-        transform: translateY(-4px);
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     }
 
@@ -117,21 +84,31 @@
         opacity: 1;
     }
 
+    .card-content {
+        position: relative;
+        z-index: 10;
+    }
+
+    .garden-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.75rem;
+    }
+
     .garden-icon {
-        width: 48px;
-        height: 48px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 1.5rem;
         color: #00ff88;
+        flex-shrink: 0;
     }
 
     .garden-title {
         font-size: 1.25rem;
         font-weight: 600;
         color: #e8e8e8;
-        margin-bottom: 0.75rem;
+        margin: 0;
         font-family: "Bricolage Grotesque", sans-serif;
     }
 
@@ -139,7 +116,8 @@
         font-size: 0.875rem;
         color: #888888;
         line-height: 1.6;
-        margin-bottom: 1rem;
+        margin: 0 0 1rem 0;
+        font-family: "Lekton", monospace;
     }
 
     .garden-tag {
@@ -149,17 +127,9 @@
         color: #00cc6a;
         background: rgba(0, 255, 136, 0.1);
         border-radius: 2px;
-        font-family: "JetBrains Mono", monospace;
+        font-family: "Lekton", monospace;
         text-transform: lowercase;
         letter-spacing: 0.05em;
-    }
-
-    .relative {
-        position: relative;
-    }
-
-    .z-10 {
-        z-index: 10;
     }
 
     @media (max-width: 768px) {

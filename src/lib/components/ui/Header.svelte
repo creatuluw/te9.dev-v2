@@ -1,5 +1,6 @@
 <script lang="ts">
     import { page } from "$app/stores";
+    import { ExternalLink } from "@lucide/svelte";
     // Terminal typing effect
     let typedText = $state("");
     const fullText = "te9.dev";
@@ -48,11 +49,9 @@
 </script>
 
 <nav
-    class={`fixed top-0 left-0 right-0 z-1000 transition-all duration-300 border-b border-[#2a2a2a] ${navScrolled ? "bg-[#0a0a0a]/98 backdrop-blur-[10px] shadow-lg" : "bg-[#0a0a0a]/90 backdrop-blur-[10px]"}`}
+    class={`fixed top-0 left-0 right-0 z-1000 transition-all duration-300 border-b border-[#2a2a2a] outline-none ${navScrolled ? "bg-[#0a0a0a] backdrop-blur-[10px] shadow-lg" : "bg-[#0a0a0a]"}`}
 >
-    <div
-        class="max-w-[1400px] mx-auto px-8 py-0 flex items-center justify-between h-[60px]"
-    >
+    <div class="w-full px-8 py-0 flex items-center justify-between h-[60px]">
         <a
             href="/"
             aria-label="Home"
@@ -80,9 +79,10 @@
                 href="https://patrick.te9.nl"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-[#888888] lowercase no-underline transition-colors hover:text-[#e8e8e8]"
-                >patrick.te9.nl →</a
+                class="text-[#888888] lowercase no-underline transition-colors hover:text-[#e8e8e8] flex items-center gap-1"
             >
+                patrick.te9.nl<ExternalLink size={12} />
+            </a>
         </div>
     </div>
 </nav>

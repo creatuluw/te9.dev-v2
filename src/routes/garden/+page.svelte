@@ -40,7 +40,7 @@
         gap: 0;
     }
 
-    .garden-card {
+    :global(.garden-card) {
         border-radius: 0;
         border-left: none;
         border-right: none;
